@@ -51,10 +51,9 @@ export default function Home() {
               <p className="text-xs text-muted-foreground mt-1">Join specialized hubs to discuss your favorite genres, directors, and languages.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4.5 mt-5">
                 {[
-                  { name: "Tollywood Club", slug: "c/tollywood", desc: "For discussions about Telugu cinema, retro classics, and new releases.", count: "14.2K members" },
-                  { name: "Criterion Corner", slug: "c/criterion", desc: "Art-house, classic, and foreign cinema discussions.", count: "8.9K members" },
-                  { name: "Sci-Fi Explorers", slug: "c/sci-fi", desc: "Time travel, space operas, and futuristic speculations.", count: "12.1K members" },
-                  { name: "Indie Film Lab", slug: "c/indie", desc: "Independent cinema, screenplays, and low-budget masterpieces.", count: "5.4K members" }
+                  { name: "Comedy Fans", slug: "c/comedy", desc: "Humorous movie scenes, funny clips, and comedy classics.", count: "14.2K members" },
+                  { name: "Action Telugu", slug: "c/action", desc: "Stunts, mass themes, action sequences, and high-energy trailers.", count: "8.9K members" },
+                  { name: "Vintage Tollywood", slug: "c/vintage", desc: "Black and white classics, nostalgic retrospectives, and legendary histories.", count: "12.1K members" }
                 ].map((comm) => (
                   <div key={comm.slug} className="p-4 rounded-xl border border-border bg-secondary/20 hover:bg-secondary/40 transition-all cursor-pointer flex flex-col justify-between">
                     <div>
@@ -79,8 +78,8 @@ export default function Home() {
             <p className="text-xs text-muted-foreground mt-1">Discover users writing the most helpful and detailed cinema reviews.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
               {[
-                { name: "Kalyan C.", handle: "@kalyancinema", rating: "4.9", bio: "Telugu classics enthusiast and visual essayist.", count: "234 reviews" },
-                { name: "Srinivas Prasad", handle: "@sriniprasad", rating: "4.8", bio: "World cinema collector, focusing on screenplay designs.", count: "189 reviews" }
+                { name: "Suresh Kumar", handle: "@suresh_cinema", rating: "4.9", bio: "Telugu classics enthusiast and visual essayist.", count: "234 reviews" },
+                { name: "Radha Reddy", handle: "@radha_reviews", rating: "4.8", bio: "World cinema collector, focusing on screenplay designs.", count: "189 reviews" }
               ].map((reviewer) => (
                 <div key={reviewer.handle} className="p-4 rounded-xl border border-border bg-secondary/20 flex flex-col justify-between items-center text-center">
                   <div className="h-12 w-12 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm mb-3">
@@ -112,15 +111,14 @@ export default function Home() {
           </div>
         )
       default:
-        // Handles custom selected community tabs (like c-tollywood)
+        // Handles custom selected community tabs (like c-comedy)
         return (
           <div className="space-y-5">
             <div className="p-6 rounded-2xl border border-border bg-card">
               <span className="text-xs text-primary font-bold uppercase tracking-wider">Active Community</span>
               <h2 className="text-lg font-black mt-1">
-                {activeTab === 'c-tollywood' ? 'Tollywood Club' :
-                 activeTab === 'c-criterion' ? 'Criterion Corner' :
-                 activeTab === 'c-sci-fi' ? 'Sci-Fi Explorers' : 'Indie Film Lab'}
+                {activeTab === 'c-comedy' ? 'Comedy Fans' :
+                 activeTab === 'c-action' ? 'Action Telugu' : 'Vintage Tollywood'}
               </h2>
               <p className="text-xs text-muted-foreground mt-1">
                 Exclusive discussions, reviews, and threads focused on this category.

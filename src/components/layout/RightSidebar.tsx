@@ -1,163 +1,149 @@
 'use client'
 
 import React from 'react'
-import { TrendingUp, Award, UserPlus, Flame, MessageSquare, Plus } from 'lucide-react'
-import Image from 'next/image'
+import { Star, ShieldAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export default function RightSidebar() {
   const trendingMovies = [
     {
-      title: "Kalki 2898 AD",
-      year: "2024",
-      backdrop: "/temp-kalki.jpg", // We will use inline color gradient blocks or simple icons since we have no real images
-      category: "Sci-Fi / Action",
-      rating: "9.2",
-    },
-    {
       title: "Devara: Part 1",
-      year: "2024",
-      category: "Action / Drama",
-      rating: "8.7",
+      rating: "Rating 8.9/10",
+      tag: "Movie Gold",
+      posterUrl: "/poster-devara.png"
     },
     {
-      title: "Salaar: Part 1",
-      year: "2023",
-      category: "Thriller / Action",
-      rating: "8.5",
+      title: "Lucky Baskhar",
+      posterUrl: "/poster-lucky.png"
+    },
+    {
+      title: "Pushpa 2: The Rule",
+      posterUrl: "/poster-pushpa2.png"
     }
   ]
 
   const topReviewers = [
-    { name: "Kalyan C.", handle: "@kalyancinema", rating: "4.9", reviews: "234 reviews", avatarColor: "bg-red-500/10 text-red-500" },
-    { name: "Srinivas Prasad", handle: "@sriniprasad", rating: "4.8", reviews: "189 reviews", avatarColor: "bg-amber-500/10 text-amber-500" },
-    { name: "Divya N.", handle: "@divyafilms", rating: "4.8", reviews: "142 reviews", avatarColor: "bg-cyan-500/10 text-cyan-500" }
+    {
+      name: "Suresh Kumar",
+      avatarUrl: "/avatar-man1.png",
+      badgeType: "star",
+      subtext: "Star"
+    },
+    {
+      name: "Radha Reddy",
+      avatarUrl: "/avatar-woman1.png",
+      badgeType: "verified",
+      subtext: "Verified"
+    }
   ]
 
-  const popularCommunities = [
-    { name: "Rajamouli Fans", members: "12.4K members", slug: "rajamouli" },
-    { name: "Classic Telugu Cinema", members: "8.2K members", slug: "classic" },
-    { name: "World Cinema Club", members: "15.1K members", slug: "world" }
-  ]
-
-  const todayDiscussions = [
-    { title: "Is Devara Jr. NTR's best raw action performance?", replies: 142, community: "Tollywood Club" },
-    { title: "Retro Review: The cinematic brilliance of 'Mayabazar'", replies: 89, community: "Classic Telugu" },
-    { title: "Sci-Fi tropes in Kalki that actually worked", replies: 231, community: "Kalki Universe" }
+  const suggestedProfiles = [
+    {
+      name: "Prasad K.",
+      handle: "@prasad_cinema",
+      avatarColor: "bg-cyan-500/10 text-cyan-500",
+      initials: "PK"
+    },
+    {
+      name: "Anitha S.",
+      handle: "@anithafilms",
+      avatarColor: "bg-emerald-500/10 text-emerald-500",
+      initials: "AS"
+    }
   ]
 
   return (
-    <aside className="fixed bottom-0 top-0 right-0 hidden w-80 border-l border-border bg-card/45 px-5 pt-6 pb-4 overflow-y-auto lg:flex flex-col gap-6 z-30">
+    <aside className="fixed bottom-0 top-0 right-0 hidden w-80 border-l border-border bg-background px-5 pt-6 pb-4 overflow-y-auto lg:flex flex-col gap-5.5 z-30 select-none">
       
-      {/* Search Bar */}
-      <div className="relative">
-        <input 
-          type="text" 
-          placeholder="Search movies, reviews, fans..." 
-          className="w-full h-10 px-4 pl-10 rounded-xl bg-secondary/80 border border-border focus:border-primary focus:outline-none text-sm transition-all"
-        />
-        <svg className="absolute left-3.5 top-3 h-4 w-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+      {/* Trending Movies Card */}
+      <div className="rounded-2xl border border-border bg-card p-5 shadow-xs">
+        <h3 className="font-extrabold text-sm text-foreground tracking-tight mb-4">Trending Movies</h3>
+        <div className="space-y-4">
+          {trendingMovies.map((movie) => (
+            <div key={movie.title} className="flex gap-3 items-center group cursor-pointer">
+              <img 
+                src={movie.posterUrl} 
+                alt={movie.title} 
+                className="h-14 w-10.5 rounded-md object-cover border border-border/80 group-hover:border-primary/45 transition-colors shrink-0"
+              />
+              <div className="flex flex-col justify-center min-w-0">
+                <span className="font-bold text-xs text-foreground truncate group-hover:text-primary transition-colors">
+                  {movie.title}
+                </span>
+                {movie.rating && (
+                  <span className="text-3xs text-muted-foreground mt-0.5 font-medium">
+                    {movie.rating}
+                  </span>
+                )}
+                {movie.tag && (
+                  <span className="text-3xs font-bold text-amber-500 mt-0.5">
+                    {movie.tag}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Trending Movies */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 px-1">
-          <Flame className="h-4.5 w-4.5 text-primary" />
-          <h3 className="font-semibold text-sm">Trending Cinema</h3>
-        </div>
-        <div className="space-y-2">
-          {trendingMovies.map((movie, index) => (
-            <div 
-              key={movie.title}
-              className="group flex gap-3 p-2.5 rounded-xl border border-border bg-card hover:bg-muted/80 transition-all cursor-pointer"
-            >
-              {/* Fallback visual placeholder instead of a broken image url */}
-              <div className="flex h-14 w-10 shrink-0 items-center justify-center rounded-lg bg-secondary font-black text-2xs text-muted-foreground tracking-tighter border border-border/80 group-hover:border-primary/30 transition-colors">
-                POSTER
-              </div>
-              <div className="flex flex-col justify-center min-w-0">
-                <span className="font-semibold text-sm truncate">{movie.title}</span>
-                <span className="text-2xs text-muted-foreground mt-0.5">{movie.category} • {movie.year}</span>
-                <div className="flex items-center gap-1 mt-1">
-                  <span className="text-2xs font-bold text-amber-500">★ {movie.rating}</span>
+      {/* Top Reviewers Card */}
+      <div className="rounded-2xl border border-border bg-card p-5 shadow-xs">
+        <h3 className="font-extrabold text-sm text-foreground tracking-tight mb-4">Top Reviewers</h3>
+        <div className="space-y-4">
+          {topReviewers.map((rev) => (
+            <div key={rev.name} className="flex items-center justify-between group cursor-pointer">
+              <div className="flex items-center gap-3 min-w-0">
+                <img 
+                  src={rev.avatarUrl} 
+                  alt={rev.name}
+                  className="h-9 w-9 rounded-full object-cover border border-border shrink-0"
+                />
+                <div className="flex flex-col min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-bold text-xs text-foreground truncate group-hover:text-primary transition-colors">
+                      {rev.name}
+                    </span>
+                    {rev.badgeType === 'star' && (
+                      <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500 shrink-0" />
+                    )}
+                  </div>
+                  <span className="text-3xs text-muted-foreground mt-0.5 font-medium">
+                    {rev.subtext}
+                  </span>
                 </div>
               </div>
+              
+              {rev.badgeType === 'verified' && (
+                <svg className="h-4.5 w-4.5 fill-primary text-primary shrink-0" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Today's Discussions */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 px-1">
-          <MessageSquare className="h-4.5 w-4.5 text-primary" />
-          <h3 className="font-semibold text-sm">Hot Discussions</h3>
-        </div>
-        <div className="space-y-2">
-          {todayDiscussions.map((disc) => (
-            <div 
-              key={disc.title}
-              className="p-3 rounded-xl border border-border bg-card hover:bg-muted/80 transition-all cursor-pointer space-y-1.5"
-            >
-              <div className="flex justify-between items-start gap-2">
-                <span className="text-2xs font-semibold px-2 py-0.5 rounded-full bg-secondary text-primary">
-                  {disc.community}
-                </span>
-                <span className="text-2xs text-muted-foreground shrink-0">{disc.replies} replies</span>
-              </div>
-              <h4 className="text-xs font-semibold leading-relaxed hover:text-primary transition-colors line-clamp-2">
-                {disc.title}
-              </h4>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Top Reviewers */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 px-1">
-          <Award className="h-4.5 w-4.5 text-primary" />
-          <h3 className="font-semibold text-sm">Top Reviewers</h3>
-        </div>
-        <div className="space-y-2">
-          {topReviewers.map((rev) => (
-            <div key={rev.handle} className="flex items-center justify-between p-2 rounded-xl hover:bg-muted/50 transition-colors">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-bold text-xs", rev.avatarColor)}>
-                  {rev.name[0]}
+      {/* Suggested Profiles */}
+      <div className="rounded-2xl border border-border bg-card p-5 shadow-xs">
+        <h3 className="font-extrabold text-sm text-foreground tracking-tight mb-4">Suggested Profiles</h3>
+        <div className="space-y-4">
+          {suggestedProfiles.map((profile) => (
+            <div key={profile.handle} className="flex items-center justify-between">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className={cn("flex h-8.5 w-8.5 shrink-0 items-center justify-center rounded-full font-extrabold text-xs border border-border", profile.avatarColor)}>
+                  {profile.initials}
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="font-semibold text-xs truncate">{rev.name}</span>
-                  <span className="text-2xs text-muted-foreground truncate">{rev.handle}</span>
+                  <span className="font-bold text-xs text-foreground truncate hover:text-primary transition-colors cursor-pointer">
+                    {profile.name}
+                  </span>
+                  <span className="text-3xs text-muted-foreground mt-0.5 font-medium">
+                    {profile.handle}
+                  </span>
                 </div>
               </div>
-              <div className="text-right shrink-0">
-                <span className="block text-2xs font-bold text-amber-500">★ {rev.rating}</span>
-                <span className="block text-3xs text-muted-foreground">{rev.reviews}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Popular Communities */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2 px-1">
-          <Flame className="h-4.5 w-4.5 text-primary" />
-          <h3 className="font-semibold text-sm">Suggested Communities</h3>
-        </div>
-        <div className="space-y-2">
-          {popularCommunities.map((comm) => (
-            <div key={comm.slug} className="flex items-center justify-between p-2 rounded-xl hover:bg-muted/50 transition-colors">
-              <div className="min-w-0">
-                <span className="block font-semibold text-xs truncate">c/{comm.slug}</span>
-                <span className="block text-2xs text-muted-foreground truncate">{comm.members}</span>
-              </div>
-              <button className="flex items-center gap-1 text-2xs font-bold text-primary hover:text-primary-foreground hover:bg-primary px-2.5 py-1 rounded-lg border border-primary/20 hover:border-transparent transition-all shrink-0">
-                <Plus className="h-3 w-3" />
-                Join
+              <button className="text-3xs font-extrabold text-primary hover:text-primary-foreground hover:bg-primary px-3 py-1 rounded-lg border border-primary/20 hover:border-transparent transition-all cursor-pointer">
+                Follow
               </button>
             </div>
           ))}

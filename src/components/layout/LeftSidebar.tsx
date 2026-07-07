@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Home, Flame, Users, BookOpen, Bookmark, Sun, Moon, Film, ChevronRight } from 'lucide-react'
 import { useTheme } from '../ThemeProvider'
 import { cn } from '@/lib/utils'
@@ -18,27 +18,29 @@ export default function LeftSidebar({ activeTab, setActiveTab }: SidebarNavProps
     { id: 'trending', label: 'Trending', icon: Flame },
     { id: 'communities', label: 'Communities', icon: Users },
     { id: 'reviewers', label: 'Reviewers', icon: BookOpen },
-    { id: 'watchlist', label: 'Watchlist', icon: Bookmark },
+    { id: 'watchlist', label: 'My Watchlist', icon: Bookmark },
   ]
 
   const myCommunities = [
-    { id: 'c-tollywood', name: 'Tollywood Club', initials: 'TC', color: 'bg-red-500/10 text-red-500' },
-    { id: 'c-criterion', name: 'Criterion Corner', initials: 'CC', color: 'bg-amber-500/10 text-amber-500' },
-    { id: 'c-sci-fi', name: 'Sci-Fi Explorers', initials: 'SF', color: 'bg-cyan-500/10 text-cyan-500' },
-    { id: 'c-indie', name: 'Indie Film Lab', initials: 'IL', color: 'bg-emerald-500/10 text-emerald-500' },
+    { id: 'c-comedy', name: 'Comedy Fans', emoji: '😂' },
+    { id: 'c-action', name: 'Action Telugu', emoji: '🏃' },
+    { id: 'c-vintage', name: 'Vintage Tollywood', emoji: '🎬' },
   ]
 
   return (
-    <aside className="fixed bottom-0 top-0 left-0 hidden w-64 border-r border-border bg-card/45 px-4 pt-6 pb-4 md:flex flex-col justify-between z-30">
+    <aside className="fixed bottom-0 top-0 left-0 hidden w-64 border-r border-border bg-card px-4 pt-6 pb-4 md:flex flex-col justify-between z-30 shadow-2xs">
       <div className="space-y-6">
-        {/* Logo */}
+        {/* Logo matching the screenshot */}
         <div className="flex items-center gap-3 px-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground font-black text-xl shadow-lg glow-primary">
-            C
+          {/* Film reel logo icon */}
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background">
+            <svg className="h-7 w-7 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-3.5 3.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-3.5 3.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" />
+            </svg>
           </div>
           <div>
-            <h1 className="font-bold text-lg leading-tight tracking-tight">Chitra</h1>
-            <p className="text-xs text-muted-foreground font-medium">Viseshalu</p>
+            <h1 className="font-extrabold text-base tracking-tight leading-none text-foreground">Chitra</h1>
+            <p className="text-xs text-foreground font-semibold tracking-wide mt-1.5">చిత్ర విశేషాలు</p>
           </div>
         </div>
 
@@ -52,15 +54,15 @@ export default function LeftSidebar({ activeTab, setActiveTab }: SidebarNavProps
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
                 className={cn(
-                  "flex w-full items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group text-left",
+                  "flex w-full items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 group text-left",
                   isActive
-                    ? "bg-primary/10 text-primary"
+                    ? "bg-accent text-accent-foreground"
                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
                 <Icon className={cn(
                   "h-5 w-5 transition-transform duration-200 group-hover:scale-105",
-                  isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
+                  isActive ? "text-accent-foreground" : "text-muted-foreground group-hover:text-foreground"
                 )} />
                 <span>{item.label}</span>
               </button>
@@ -72,7 +74,7 @@ export default function LeftSidebar({ activeTab, setActiveTab }: SidebarNavProps
 
         {/* My Communities */}
         <div className="space-y-3">
-          <h2 className="px-3.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground/80">
+          <h2 className="px-3.5 text-sm font-bold text-foreground">
             My Communities
           </h2>
           <div className="space-y-1">
@@ -81,18 +83,13 @@ export default function LeftSidebar({ activeTab, setActiveTab }: SidebarNavProps
                 key={community.id}
                 onClick={() => setActiveTab(community.id)}
                 className={cn(
-                  "flex w-full items-center justify-between px-3.5 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-all group",
+                  "flex w-full items-center justify-between px-3.5 py-2 rounded-xl text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground transition-all group",
                   activeTab === community.id && "bg-secondary text-foreground"
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <div className={cn(
-                    "flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold transition-transform group-hover:scale-105",
-                    community.color
-                  )}>
-                    {community.initials}
-                  </div>
-                  <span className="truncate max-w-[120px]">{community.name}</span>
+                  <span className="text-base select-none shrink-0">{community.emoji}</span>
+                  <span className="truncate max-w-[150px]">{community.name}</span>
                 </div>
                 <ChevronRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
               </button>
@@ -105,14 +102,14 @@ export default function LeftSidebar({ activeTab, setActiveTab }: SidebarNavProps
       <div className="space-y-4">
         <button
           onClick={toggleTheme}
-          className="flex w-full items-center justify-between px-3.5 py-3 rounded-xl border border-border bg-card/60 hover:bg-muted text-sm font-medium transition-all group"
+          className="flex w-full items-center justify-between px-3.5 py-2.5 rounded-xl border border-border bg-card hover:bg-muted text-sm font-semibold transition-all group"
         >
           <span className="text-muted-foreground group-hover:text-foreground transition-colors">
             Appearance
           </span>
-          <div className="flex h-7 w-12 items-center rounded-full bg-muted p-1 transition-colors relative border border-border">
+          <div className="flex h-6.5 w-11 items-center rounded-full bg-secondary p-0.5 transition-colors relative border border-border">
             <div className={cn(
-              "flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm transition-transform duration-200",
+              "flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xs transition-transform duration-200",
               theme === 'dark' ? 'translate-x-5' : 'translate-x-0'
             )}>
               {theme === 'dark' ? <Moon className="h-3 w-3" /> : <Sun className="h-3 w-3" />}

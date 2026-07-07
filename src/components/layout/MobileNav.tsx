@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Home, Flame, Users, BookOpen, Bookmark, Plus, X } from 'lucide-react'
+import { Home, Search, User, Plus, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import CreatePostCard from '../features/feed/CreatePostCard'
 
@@ -15,10 +15,8 @@ export default function MobileNav({ activeTab, setActiveTab }: MobileNavProps) {
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'trending', label: 'Trending', icon: Flame },
-    { id: 'communities', label: 'Groups', icon: Users },
-    { id: 'reviewers', label: 'Critics', icon: BookOpen },
-    { id: 'watchlist', label: 'Saved', icon: Bookmark },
+    { id: 'search', label: 'Search', icon: Search },
+    { id: 'profile', label: 'Profile', icon: User },
   ]
 
   return (
@@ -33,8 +31,8 @@ export default function MobileNav({ activeTab, setActiveTab }: MobileNavProps) {
         </button>
       </div>
 
-      {/* Bottom Nav Bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-16 border-t border-border bg-card/90 backdrop-blur-lg md:hidden flex justify-around items-center px-2 z-40">
+      {/* Bottom Nav Bar matching the screenshot style */}
+      <div className="fixed bottom-0 left-0 right-0 h-16 border-t border-border bg-card/90 backdrop-blur-md md:hidden flex justify-around items-center px-6 z-40 select-none">
         {navItems.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.id
@@ -42,18 +40,12 @@ export default function MobileNav({ activeTab, setActiveTab }: MobileNavProps) {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className="flex flex-col items-center justify-center w-14 h-full gap-1 group focus:outline-none"
+              className="flex flex-col items-center justify-center w-16 h-full gap-1 group focus:outline-none cursor-pointer"
             >
               <Icon className={cn(
-                "h-5.5 w-5.5 transition-transform duration-200 group-active:scale-95",
+                "h-6 w-6 transition-transform duration-200 group-active:scale-95 stroke-[1.8]",
                 isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
               )} />
-              <span className={cn(
-                "text-3xs font-medium transition-colors",
-                isActive ? "text-primary font-bold" : "text-muted-foreground"
-              )}>
-                {item.label}
-              </span>
             </button>
           )
         })}
@@ -69,7 +61,7 @@ export default function MobileNav({ activeTab, setActiveTab }: MobileNavProps) {
               <span className="font-bold text-sm">Create New Post</span>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-all"
+                className="h-8 w-8 flex items-center justify-center rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-all cursor-pointer"
               >
                 <X className="h-4.5 w-4.5" />
               </button>
@@ -77,7 +69,6 @@ export default function MobileNav({ activeTab, setActiveTab }: MobileNavProps) {
 
             {/* Post Card */}
             <CreatePostCard onPostCreated={() => {
-              // Close modal on post creation (in a real app it'd add to feed state)
               setShowCreateModal(false)
             }} />
           </div>
