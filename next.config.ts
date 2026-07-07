@@ -1,7 +1,27 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  // ---------------------------------------------------------------------------
+  // Image optimisation
+  // ---------------------------------------------------------------------------
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        pathname: '/t/p/**',
+      },
+    ],
+    formats: ['image/avif', 'image/webp'],
+  },
 
-export default nextConfig;
+  // ---------------------------------------------------------------------------
+  // Experimental
+  // ---------------------------------------------------------------------------
+  experimental: {
+    // Tree-shake lucide-react at the package level instead of per-import
+    optimizePackageImports: ['lucide-react'],
+  },
+}
+
+export default nextConfig
